@@ -8,22 +8,29 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;
+    private int id;
 
     @Column(name = "first_name")
-    public String firstName;
+    private String firstName;
 
     @Column(name = "last_name")
-    public String lastName;
+    private String lastName;
 
     @Column(name = "middle_name")
-    public String middleName;
+    private String middleName;
 
     @Column(name = "email")
-    public String email;
+    private String email;
 
     @Column(name = "phone")
-    public String phone;
+    private String phone;
+
+    @Column(name = "alive")
+    private boolean isAlive;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    public City cityId;
 
     public int getId() {
         return id;
@@ -71,5 +78,13 @@ public class Person {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
     }
 }

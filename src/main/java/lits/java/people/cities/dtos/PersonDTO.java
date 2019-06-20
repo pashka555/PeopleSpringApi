@@ -2,17 +2,15 @@ package lits.java.people.cities.dtos;
 
 public class PersonDTO {
 
-    public Integer id;
+    private String firstName;
 
-    public String firstName;
+    private String lastName;
 
-    public String lastName;
+    private String middleName;
 
-    public String middleName;
+    private String email;
 
-    public String email;
-
-    public String phone;
+    private String phone;
 
     public String getFirstName() {
         return firstName;
