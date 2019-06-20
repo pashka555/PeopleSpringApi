@@ -24,6 +24,7 @@ public class DeadPeopleService implements PeopleService {
     public PersonDTO getById(Integer id) {
 
         return Mapper.map(peopleRepository.getOne(id),PersonDTO.class);
+
     }
 
     @Override
