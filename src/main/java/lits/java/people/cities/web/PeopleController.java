@@ -1,3 +1,5 @@
+package lits.java.people.cities.web;
+
 import lits.java.people.cities.dtos.PersonDTO;
 import lits.java.people.cities.model.Person;
 import lits.java.people.cities.service.PeopleService;
@@ -12,21 +14,21 @@ import java.util.List;
 public class PeopleController {
 
     @Autowired
-    @Qualifier(value = "noika")
+    @Qualifier(value = "alive")
     private PeopleService peopleService;
 
     @GetMapping
-    public List<Person> getAllPhones() {
+    public List<PersonDTO> getAllPhones() {
         return peopleService.getAllPeople();
     }
 
-    @GetMapping(value="/phones")
-    public Person getPhoneById(@RequestParam Integer id) {
+    @GetMapping(value="/people")
+    public PersonDTO getPhoneById(@RequestParam Integer id) {
         return peopleService.getById(id);
     }
 
     @PostMapping
-    public Person savePhone(@RequestBody Person person) {
+    public PersonDTO savePhone(@RequestBody PersonDTO person) {
         return peopleService.save(person);
     }
 

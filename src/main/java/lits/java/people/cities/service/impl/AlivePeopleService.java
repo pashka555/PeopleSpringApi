@@ -1,6 +1,7 @@
 package lits.java.people.cities.service.impl;
 
 import lits.java.people.cities.PeopleRepository;
+import lits.java.people.cities.dtos.PersonDTO;
 import lits.java.people.cities.model.Person;
 import lits.java.people.cities.service.PeopleService;
 import org.modelmapper.ModelMapper;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service(value="alive")
 public class AlivePeopleService implements PeopleService {
@@ -19,17 +21,20 @@ public class AlivePeopleService implements PeopleService {
     private ModelMapper Mapper;
 
     @Override
-    public Person getById(Integer id) {
-        return peopleRepository.getOne(id);
+    public PersonDTO getById(Integer id) {
+
+        return Mapper.map(peopleRepository.getOne(id),PersonDTO.class);
     }
 
     @Override
-    public List<Person> getAllPeople() {
-        return peopleRepository.findAll();
+    public List<PersonDTO> getAllPeople() {
+        return peopleRepository.findAll().stream().map( x-> {
+            return (PersonDTO)(Mapper.map(x,PersonDTO.class));
+        }).collect(Collectors.toList());
     }
 
     @Override
-    public Person save(Person person) {
-        return peopleRepository.save(person);
+    public PersonDTO save(PersonDTO person) {
+        return Mapper.map(peopleRepository.save(Mapper.map(person,Person.class)),PersonDTO.class);
     }
 }
