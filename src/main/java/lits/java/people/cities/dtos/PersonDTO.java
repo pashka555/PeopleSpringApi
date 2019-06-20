@@ -2,8 +2,6 @@ package lits.java.people.cities.dtos;
 
 public class PersonDTO {
 
-    public Integer id;
-
     public String firstName;
 
     public String lastName;
