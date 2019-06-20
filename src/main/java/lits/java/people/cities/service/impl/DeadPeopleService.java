@@ -6,6 +6,7 @@ import lits.java.people.cities.model.Person;
 import lits.java.people.cities.service.PeopleService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,5 +38,15 @@ public class DeadPeopleService implements PeopleService {
     @Override
     public PersonDTO save(PersonDTO person) {
         return Mapper.map(peopleRepository.save(Mapper.map(person,Person.class)),PersonDTO.class);
+    }
+
+    @Override
+    public List<PersonDTO> getByName(String name) {
+        Person person = new Person();
+        person.setFirstName(name);
+        List<PersonDTO> people = peopleRepository.findAll(Example.of(person))
+                .stream().map(x->{return Mapper.map(x,PersonDTO.class);}).collect(Collectors.toList());
+
+        return people;
     }
 }

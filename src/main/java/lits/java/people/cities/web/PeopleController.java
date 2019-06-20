@@ -8,30 +8,41 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value="/api")
 public class PeopleController {
 
+
     @Autowired
-    @Qualifier(value = "alive")
-    private PeopleService peopleService;
+    private Map<String, PeopleService> personServicesMap;
+
+    private PeopleService qualifiedPersonService(Boolean isAlive){
+        PeopleService peopleService = isAlive ?
+                personServicesMap.get("alive") : personServicesMap.get("dead");
+        return peopleService;
+    }
 
     @GetMapping
-    public List<PersonDTO> getAllPhones() {
-        return peopleService.getAllPeople();
+    public List<PersonDTO> getAllPeople(@RequestParam(name = "alive") boolean isAlive) {
+        return qualifiedPersonService(isAlive).getAllPeople();
     }
 
     @GetMapping(value="/people")
-    public PersonDTO getPhoneById(@RequestParam Integer id) {
-        return peopleService.getById(id);
+    public PersonDTO getPhoneById(@RequestParam(name = "alive") boolean isAlive, @RequestParam Integer id) {
+        return qualifiedPersonService(isAlive).getById(id);
     }
 
     @PostMapping
-    public PersonDTO savePhone(@RequestBody PersonDTO person) {
-        return peopleService.save(person);
+    public PersonDTO savePhone(@RequestParam(name = "alive") boolean isAlive, @RequestBody PersonDTO person) {
+        return qualifiedPersonService(isAlive).save(person);
     }
 
+    @GetMapping(value="/findPerson")
+    public List<PersonDTO> getPeopleByName(@RequestParam(name = "name") String name) {
+        return qualifiedPersonService(true).getByName(name);
+    }
     //@GetMapping
     //public List<Phone> getAllPhones() {
     //    return phoneDetailsService.getAll();

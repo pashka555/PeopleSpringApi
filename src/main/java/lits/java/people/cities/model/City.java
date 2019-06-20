@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
+@Entity
+@Table(name = "city")
 public class City {
 
     @Id
@@ -22,7 +24,7 @@ public class City {
     @Column(name = "built_on")
     private Timestamp builtOn;
 
-    @OneToMany(mappedBy = "city_id")
+    @OneToMany(mappedBy = "cityId")
     private List<Person> people;
 
     public int getCityId() {
