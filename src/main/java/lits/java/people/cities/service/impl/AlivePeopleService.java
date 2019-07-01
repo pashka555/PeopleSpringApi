@@ -23,30 +23,33 @@ public class AlivePeopleService implements PeopleService {
 
     @Override
     public PersonDTO getById(Integer id) {
-
-        return Mapper.map(peopleRepository.getOne(id),PersonDTO.class);
+        Person toGet = new Person();
+        toGet.setId(id);
+        toGet.setAlive(true);
+        return Mapper.map(peopleRepository.findOne(Example.of(toGet)),PersonDTO.class);
     }
 
     @Override
     public List<PersonDTO> getAllPeople() {
-        return peopleRepository.findAll().stream().map( x-> {
-            return (PersonDTO)(Mapper.map(x,PersonDTO.class));
-        }).collect(Collectors.toList());
+        Person alivePerson = new Person();
+        alivePerson.setAlive(true);
+        return peopleRepository.findAll(Example.of(alivePerson)).stream().map( x-> Mapper.map(x,PersonDTO.class)).collect(Collectors.toList());
     }
 
     @Override
     public PersonDTO save(PersonDTO person) {
-
-        return Mapper.map(peopleRepository.save(Mapper.map(person,Person.class)),PersonDTO.class);
-
+        Person toSave = Mapper.map(person,Person.class);
+        toSave.setAlive(true);
+        return Mapper.map(peopleRepository.save(toSave),PersonDTO.class);
     }
 
     @Override
     public List<PersonDTO> getByName(String name) {
         Person person = new Person();
         person.setFirstName(name);
+        person.setAlive(true);
         List<PersonDTO> people = peopleRepository.findAll(Example.of(person))
-                .stream().map(x->{return Mapper.map(x,PersonDTO.class);}).collect(Collectors.toList());
+                .stream().map(x-> Mapper.map(x,PersonDTO.class)).collect(Collectors.toList());
 
         return people;
     }

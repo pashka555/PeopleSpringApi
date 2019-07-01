@@ -19,7 +19,9 @@ public class PeopleController {
     private Map<String, PeopleService> personServicesMap;
 
     private PeopleService qualifiedPersonService(Boolean isAlive){
-        PeopleService peopleService = isAlive ?
+        PeopleService peopleService = isAlive == null ?
+                personServicesMap.get("all") :
+                isAlive ?
                 personServicesMap.get("alive") : personServicesMap.get("dead");
         return peopleService;
     }
@@ -35,7 +37,7 @@ public class PeopleController {
     }
 
     @PostMapping
-    public PersonDTO savePhone(@RequestParam(name = "alive") boolean isAlive, @RequestBody PersonDTO person) {
+    public PersonDTO savePerson(@RequestParam(name = "alive") boolean isAlive, @RequestBody PersonDTO person) {
         return qualifiedPersonService(isAlive).save(person);
     }
 
