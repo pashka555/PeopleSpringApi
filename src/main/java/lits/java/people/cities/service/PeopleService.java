@@ -11,4 +11,6 @@ public interface PeopleService {
     List<PersonDTO> getAllPeople();
 
     PersonDTO save(PersonDTO person);
+
+    List<PersonDTO> getByName(String name);
 }

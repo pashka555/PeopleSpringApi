@@ -1,75 +1,42 @@
 package lits.java.people.cities.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@EqualsAndHashCode(exclude = "id")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Data
 @Entity
 @Table
 public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;
+    private int id;
 
-    @Column(name = "first_name")
-    public String firstName;
+    @Column(name = "firstName")
+    private String firstName;
 
-    @Column(name = "last_name")
-    public String lastName;
+    @Column(name = "lastName")
+    private String lastName;
 
-    @Column(name = "middle_name")
-    public String middleName;
+    @Column(name = "middleName")
+    private String middleName;
 
     @Column(name = "email")
-    public String email;
+    private String email;
 
     @Column(name = "phone")
-    public String phone;
+    private String phone;
 
-    public int getId() {
-        return id;
-    }
+    @Column(name = "alive")
+    private boolean alive;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City cityId;
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 }

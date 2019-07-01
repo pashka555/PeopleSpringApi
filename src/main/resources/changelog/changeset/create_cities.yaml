@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: pavlo
+      changes:
+        - createTable:
+            tableName: city
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: location
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: postcode
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: population
+                  type: int(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: built_on
+                  type: timestamp
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
