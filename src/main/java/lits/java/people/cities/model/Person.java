@@ -37,6 +37,6 @@ public class Person {
 
     @ManyToOne
     @JoinColumn(name = "city_id")
-    public City cityId;
+    private City cityId;
 
 }

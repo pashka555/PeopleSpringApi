@@ -1,5 +1,6 @@
 package lits.java.people.cities.dtos;
 
+import lits.java.people.cities.model.City;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,4 +19,5 @@ public class PersonDTO {
     private String email;
 
     private String phone;
+
 }

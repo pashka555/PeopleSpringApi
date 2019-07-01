@@ -32,7 +32,7 @@ public class PeopleController {
     }
 
     @GetMapping(value="/people")
-    public PersonDTO getPhoneById(@RequestParam(name = "alive") boolean isAlive, @RequestParam Integer id) {
+    public PersonDTO getPersonById(@RequestParam(name = "alive") boolean isAlive, @RequestParam Integer id) {
         return qualifiedPersonService(isAlive).getById(id);
     }
 
@@ -45,8 +45,5 @@ public class PeopleController {
     public List<PersonDTO> getPeopleByName(@RequestParam(name = "name") String name) {
         return qualifiedPersonService(true).getByName(name);
     }
-    //@GetMapping
-    //public List<Phone> getAllPhones() {
-    //    return phoneDetailsService.getAll();
-    //}
+
 }
