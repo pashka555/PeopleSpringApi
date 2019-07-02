@@ -1,8 +1,9 @@
 package lits.java.people.cities.service.impl;
 
-import lits.java.people.cities.PeopleRepository;
+import lits.java.people.cities.repository.PeopleRepository;
 import lits.java.people.cities.dtos.PersonDTO;
 import lits.java.people.cities.model.Person;
+import lits.java.people.cities.service.PersonNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -22,28 +23,33 @@ public class AllPeopleService implements lits.java.people.cities.service.PeopleS
     @Override
     public PersonDTO getById(Integer id) {
 
-        return Mapper.map(peopleRepository.getOne(id),PersonDTO.class);
+
+        if (!peopleRepository.existsById(id))
+        {
+            throw new PersonNotFoundException("User with id " + id + " not found");
+        }
+
+
+        Person gotten = peopleRepository.findById(id).get();
+
+        return Mapper.map(gotten,PersonDTO.class);
     }
 
     @Override
     public List<PersonDTO> getAllPeople() {
-        return peopleRepository.findAll().stream().map( x-> {
-            return (PersonDTO)(Mapper.map(x,PersonDTO.class));
-        }).collect(Collectors.toList());
+
+
+
+        return null;
     }
 
     @Override
     public PersonDTO save(PersonDTO person) {
-        return Mapper.map(peopleRepository.save(Mapper.map(person, Person.class)),PersonDTO.class);
+        return Mapper.map(peopleRepository.save(Mapper.map(person,Person.class)),PersonDTO.class);
     }
 
     @Override
     public List<PersonDTO> getByName(String name) {
-        Person person = new Person();
-        person.setFirstName(name);
-        List<PersonDTO> people = peopleRepository.findAll(Example.of(person))
-                .stream().map(x-> Mapper.map(x,PersonDTO.class)).collect(Collectors.toList());
-
-        return people;
+        return null;
     }
 }

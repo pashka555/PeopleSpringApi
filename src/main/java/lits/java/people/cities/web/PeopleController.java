@@ -5,6 +5,7 @@ import lits.java.people.cities.model.Person;
 import lits.java.people.cities.service.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,13 +33,13 @@ public class PeopleController {
     }
 
     @GetMapping(value="/people")
-    public PersonDTO getPersonById(@RequestParam(name = "alive") boolean isAlive, @RequestParam Integer id) {
-        return qualifiedPersonService(isAlive).getById(id);
+    public PersonDTO getPersonById(@RequestParam(name = "alive", required = false) boolean isAlive, @RequestParam Integer id) {
+        return qualifiedPersonService(null).getById(id);
     }
 
     @PostMapping
-    public PersonDTO savePerson(@RequestParam(name = "alive") boolean isAlive, @RequestBody PersonDTO person) {
-        return qualifiedPersonService(isAlive).save(person);
+    public PersonDTO savePerson(@RequestParam(name = "alive") boolean isAlive, @Validated @RequestBody PersonDTO person) {
+        return qualifiedPersonService(null).save(person);
     }
 
     @GetMapping(value="/findPerson")

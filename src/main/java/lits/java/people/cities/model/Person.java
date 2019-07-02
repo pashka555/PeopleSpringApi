@@ -35,8 +35,5 @@ public class Person {
     @Column(name = "alive")
     private boolean alive;
 
-    @ManyToOne
-    @JoinColumn(name = "city_id")
-    private City cityId;
 
 }
