@@ -4,23 +4,18 @@ package lits.java.people.cities.service;
 import lits.java.people.cities.PeopleRepository;
 import lits.java.people.cities.dtos.PersonDTO;
 import lits.java.people.cities.model.Person;
-import lits.java.people.cities.service.impl.AlivePeopleService;
 import lits.java.people.cities.service.impl.DeadPeopleService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.stubbing.OngoingStubbing;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Example;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
-import static org.hamcrest.CoreMatchers.any;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
